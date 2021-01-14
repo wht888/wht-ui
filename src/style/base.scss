@@ -1,0 +1,324 @@
+/* z-index 默认1 蒙层2 蒙层上3 */
+/* css完美过渡时间0.3s */
+/* 行高建议1.618em */
+/* 自定义变量 */
+:root {
+    /* 颜色 */
+    --color: rgba(0, 0, 0, 0.85);
+    --color-primary: rgba(24, 144, 255, 1);
+    --color-success: rgba(103, 194, 58, 1);
+    --color-warning: rgba(230, 162, 60, 1);
+    --color-danger: rgba(245, 108, 108, 1);
+    --color-fff: rgba(255, 255, 255, 1);
+    --color-title: rgba(0, 0, 0, 0.85);
+    --color-text: rgba(0, 0, 0, 0.65);
+    --color-text2: rgba(0, 0, 0, 0.45);
+    --color-disable: rgba(0, 0, 0, 0.25);
+    --color-border: rgba(0, 0, 0, 0.15);
+    --color-dividers: rgba(0, 0, 0, 0.06);
+    --color-background: rgba(0, 0, 0, 0.04);
+    --color-tableHeader: rgba(0, 0, 0, 0.02);
+    --color-track: rgba(24, 144, 255, 0.2);
+  
+    /* 字体大小 */
+    --fs-mini: 12px;
+    --fs-small: 14px;
+    --fs-default: 16px;
+    --fs-large: 18px;
+  
+    /* 边距 */
+    --mg-small: 8px;
+    --mg-default: 16px;
+    --mg-large: 24px;
+  
+    /* 滚动条宽高 */
+    --scroll-width:12px;
+  
+    /* 过渡，加速 cubic-bezier(0.42, 0, 1.0, 1.0) */
+    --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  
+    /* 过渡，减速 cubic-bezier(0, 0, 0.58, 1.0) */
+    --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+  
+    /* 过渡，先加速再减速 cubic-bezier(0.42, 0, 0.58, 1.0) */
+    --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+    --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+    --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+  
+  /* 盒子大小改为固定宽，内边距和boder不会增加盒子的大小 */
+  div {
+    box-sizing: border-box;
+  }
+  
+  /* 全部 */
+  * {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  /* 默认盒子大小 */
+  .content-box {
+    box-sizing: content-box;
+  }
+  
+  body {
+    /* 使用系统字体 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-size: var(--fs-default);
+    text-align: left;
+    color: var(--color);
+    background-color: var(--color-background);
+    height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* 去除列表样式 */
+  ul,
+  li {
+    list-style: none;
+  }
+  
+  /*表格默认样式*/
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    caption-side: top;
+    empty-cells: hide;
+    table-layout: fixed;
+  }
+  
+  /* 选择文本背景色 */
+  ::selection {
+    background-color: var(--color-primary);
+  }
+  
+  .user-select {
+    user-select: none;
+  }
+  
+  /* 滚条样式 */
+  ::-webkit-scrollbar {
+    width: var(--scroll-width);
+    height: var(--scroll-width);
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-track);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+  }
+  
+  /* 文字超出宽度显示省略号 */
+  .text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  /* 图片显示在容器中间 */
+  .image-contain {
+    object-fit: contain;
+    object-position: center;
+  }
+  
+  /* 图片覆盖容器 */
+  .image-cover {
+    object-fit: cover;
+    object-position: right top;
+  }
+  
+  /* 字体大小 */
+  .fs-mini {
+    font-size: var(--fs-mini);
+  }
+  .fs-small {
+    font-size: var(--fs-small);
+  }
+  .fs-default {
+    font-size: var(--fs-default);
+  }
+  .fs-large {
+    font-size: var(--fs-large);
+  }
+  
+  /* 字体对齐方式 */
+  .tc {
+    text-align: center;
+  }
+  .tl {
+    text-align: left;
+  }
+  .tr {
+    text-align: right;
+  }
+  
+  /* 颜色 */
+  .color-primary {
+    color: var(--color-primary);
+  }
+  .color-success {
+    color: var(--color-success);
+  }
+  .color-warning {
+    color: var(--color-warning);
+  }
+  .color-danger {
+    color: var(--color-danger);
+  }
+  .color-fff {
+    color: var(--color-fff);
+  }
+  .color-title {
+    color: var(--color-title);
+  }
+  .color-text {
+    color: var(--color-text);
+  }
+  .color-text2 {
+    color: var(--color-text2);
+  }
+  .color-disable {
+    color: var(--color-disable);
+  }
+  .color-border {
+    color: var(--color-border);
+  }
+  .color-dividers {
+    color: var(--color-dividers);
+  }
+  .color-background {
+    color: var(--color-background);
+  }
+  .color-tableheader {
+    color: var(--color-tableHeader);
+  }
+  
+  /* 外边距 */
+  .mr-8 {
+    margin-right: var(--mg-small);
+  }
+  .mb-8 {
+    margin-bottom: var(--mg-small);
+  }
+  .ml-8 {
+    margin-left: var(--mg-small);
+  }
+  .mt-8 {
+    margin-top: var(--mg-small);
+  }
+  .ml-16 {
+    margin-left: var(--mg-default);
+  }
+  .mr-16 {
+    margin-right: var(--mg-default);
+  }
+  .mt-16 {
+    margin-top: var(--mg-default);
+  }
+  .mb-16 {
+    margin-bottom: var(--mg-default);
+  }
+  .mt-24 {
+    margin-top: var(--mg-large);
+  }
+  .mr-24 {
+    margin-right: var(--mg-large);
+  }
+  .mb-24 {
+    margin-bottom: var(--mg-large);
+  }
+  .ml-24 {
+    margin-left: var(--mg-large);
+  }
+  
+  /* 其他 */
+  .hidden {
+    display: none;
+  }
+  .block {
+    display: block;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .border-bottom {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .bold {
+    font-weight: 600;
+  }
+  .underline {
+    text-decoration: underline;
+  }
+  
+  /* flex布局 */
+  .flex {
+    display: flex;
+  }
+  .flex-center {
+    display: flex;
+    justify-content: center;
+  }
+  .flex-center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-between-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .flex-around {
+    display: flex;
+    justify-content: space-around;
+  }
+  .flex-around-center {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  /* 浮动 */
+  .clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .fl {
+    float: left;
+  }
+  .fr {
+    float: right;
+  }
+  
